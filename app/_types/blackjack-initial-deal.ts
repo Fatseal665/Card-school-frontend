@@ -1,6 +1,8 @@
-import { CardDTO } from "./card";
-
-export interface BlackJackInitialDealDTO {
-  playerCards: CardDTO[];
-  dealerCards: CardDTO[];
+export interface CardDTO {
+  rank: number;           
+  blackjackValue: number; 
+  suit: string;
+  imagePath: string;
+  displayName: string;
+  faceDown: boolean;
 }

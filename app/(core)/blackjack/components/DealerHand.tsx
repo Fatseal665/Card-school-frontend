@@ -9,16 +9,18 @@ export default function DealerHand({ cards }: Props) {
     <div style={{ display: "flex", gap: 8 }}>
       {cards.map((card, i) => {
         // Decide which image to show based on faceDown
-        const imgSrc = card.faceDown ? "/cards/hidden_card.svg" : card.imagePath;
+        const imgSrc = card.faceDown
+          ? "/cards/hidden_card.svg"
+          : card.imagePath;
         return (
-        <img
-          key={i}
-          src={card.imagePath}
-          alt={card.faceDown ? "Hidden card" : card.displayName}
-          style={{ width: 80 }}
-        />
-      );
-    })}
+          <img
+            key={i}
+            src={card.imagePath}
+            alt={card.faceDown ? "Hidden card" : card.displayName}
+            style={{ width: 80 }}
+          />
+        );
+      })}
     </div>
   );
 }
