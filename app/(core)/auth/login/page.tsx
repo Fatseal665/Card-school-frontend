@@ -1,15 +1,30 @@
-'use client'
-
+'use client';
 
 import { useState } from "react";
 import { loginUser } from "@/app/_services/auth/authApi";
 import type { CustomUserLoginDTO } from "@/app/_types/auth/login";
+import { useSearchParams, useRouter } from "next/navigation";
+
+import { useEffect } from "react";
+import { checkAuth } from "@/app/_services/auth/authApi";
+
 
 export default function LoginPage() {
+  const router = useRouter();
+
+  
   const [form, setForm] = useState<CustomUserLoginDTO>({
     email: "",
     password: "",
   });
+  
+  
+
+  const searchParams = useSearchParams();
+
+  const redirectParam = searchParams.get("redirect");
+  const redirectTo =
+    redirectParam && redirectParam.startsWith("/") ? redirectParam : "/";
 
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -28,7 +43,7 @@ export default function LoginPage() {
 
     try {
       await loginUser(form);
-      // TODO: save token / redirect
+      router.replace(redirectTo);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -63,8 +78,6 @@ export default function LoginPage() {
           {loading ? "Logging in..." : "Login"}
         </button>
       </form>
-
-      {error && <p style={{ color: "red" }}>{error}</p>}
     </div>
-  );
+    )
 }
