@@ -1,5 +1,6 @@
 export interface CardDTO {
-  value: number;
+  rank: number;
+  blackjackValue: number;
   suit: string;
   imagePath: string;
   displayName: string;

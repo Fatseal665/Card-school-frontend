@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { CardDTO } from "@/app/_types/card";
-import { BlackJackInitialDealDTO } from "@/app/_types/blackjack-initial-deal";
 import { BlackJackStateDTO } from "@/app/_types/blackjack-state-dto";
 import { newGame, playerHit, stay } from "@/app/_services/blackjackApi";
 import PlayerHand from "./components/PlayerHand";
@@ -16,13 +15,8 @@ export default function BlackjackPage() {
   const [gameOver, setGameOver] = useState(false);
   const [message, setMessage] = useState("");
 
-  // Applies a full Blackjack game state from the backend:
-  // - updates player/dealer cards
-  // - updates gameOver flag
-  // - determines and sets the correct UI message (bust, win, lose)
   // Applies the current state from the backend to the frontend.
   // Updates player/dealer cards, points, gameOver, and messages.
-
   const applyState = (state: BlackJackStateDTO) => {
     // Update cards
     setPlayerCards(state.playerCards ?? []);
@@ -56,18 +50,15 @@ export default function BlackjackPage() {
   // Start new game
   const handleNewGame = async () => {
   try {
-    const initialDeal: BlackJackInitialDealDTO = await newGame();
+    const initialDeal = await newGame();
 
-    // Skapa ett state-objekt som frontend kan använda
-    const initialState: BlackJackStateDTO = {
-      playerCards: initialDeal.playerCards ?? [],
-      dealerCards: initialDeal.dealerCards ?? [],
-      playerPoints: initialDeal.playerPoints,
-      dealerPoints: initialDeal.dealerPoints,
-      gameOver: false,
-    };
+    setPlayerCards(initialDeal.playerCards);
+    setDealerCards(initialDeal.dealerCards);
+    setPlayerPoints(initialDeal.playerPoints);
 
-    applyState(initialState);
+    setDealerPoints(null);
+    setGameOver(false);
+    setMessage("");
   } catch (error) {
     console.error("Failed to start new game", error);
   }

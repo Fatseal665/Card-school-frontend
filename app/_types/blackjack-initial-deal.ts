@@ -1,8 +1,8 @@
-export interface CardDTO {
-  rank: number;           
-  blackjackValue: number; 
-  suit: string;
-  imagePath: string;
-  displayName: string;
-  faceDown: boolean;
+import { CardDTO } from "./card";
+
+export interface BlackJackInitialDealDTO {
+  playerCards: CardDTO[];
+  dealerCards: CardDTO[];
+  playerPoints: number;
 }
+
