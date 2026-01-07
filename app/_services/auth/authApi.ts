@@ -1,5 +1,7 @@
 import { CustomUserLoginDTO } from "@/app/_types/auth/login";
+import { UserMeDTO } from "@/app/_types/auth/me";
 import { CustomUserRegisterDTO } from "@/app/_types/auth/register";
+
 
 const API_BASE_URL = "http://localhost:4000/auth";
 
@@ -29,12 +31,12 @@ export async function loginUser(data: CustomUserLoginDTO) {
     body: JSON.stringify(data),
     credentials: "include"
   });
-
+  
   if (!res.ok) {
     const text = await res.text();
     throw new Error(text || "Login failed");
   }
-
+  
   return res.json();
 }
 
@@ -98,7 +100,7 @@ export async function deleteSelf(password: string) {
     headers: {
       "Content-Type": "application/json",
     },
-    credentials: "include", // 🔑 JWT-cookie
+    credentials: "include",
     body: JSON.stringify({ password }),
   });
 
@@ -108,4 +110,21 @@ export async function deleteSelf(password: string) {
   }
 
   return true;
+}
+
+export async function getMe(): Promise<UserMeDTO> {
+  const res = await fetch(`${API_BASE_URL}/me`, {
+    method: "GET",
+    credentials: "include",
+  });
+
+  if (res.status === 401) {
+    throw new Error("UNAUTHORIZED");
+  }
+  
+  if (!res.ok) {
+    throw new Error("Failed to fetch user");
+  }
+  
+  return res.json();
 }
