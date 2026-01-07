@@ -1,4 +1,5 @@
 import { CardDTO } from "@/app/_types/card";
+import styles from "./PlayerHand.module.css";
 
 interface Props {
   cards: CardDTO[];
@@ -6,13 +7,13 @@ interface Props {
 
 export default function PlayerHand({ cards }: Props) {
   return (
-    <div style={{ display: "flex", gap: 8 }}>
+    <div className={styles.playerHand}>
       {cards.map((card, i) => (
         <img
           key={i}
           src={card.imagePath}
           alt={card.displayName}
-          style={{ width: 80 }}
+          className={styles.card}
         />
       ))}
     </div>

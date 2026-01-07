@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import styles from "./BlackjackPage.module.css";
+
 import { CardDTO } from "@/app/_types/card";
 import { BlackJackStateDTO } from "@/app/_types/blackjack-state-dto";
 import { newGame, playerHit, stay } from "@/app/_services/blackjackApi";
@@ -49,20 +51,20 @@ export default function BlackjackPage() {
 
   // Start new game
   const handleNewGame = async () => {
-  try {
-    const initialDeal = await newGame();
+    try {
+      const initialDeal = await newGame();
 
-    setPlayerCards(initialDeal.playerCards);
-    setDealerCards(initialDeal.dealerCards);
-    setPlayerPoints(initialDeal.playerPoints);
+      setPlayerCards(initialDeal.playerCards);
+      setDealerCards(initialDeal.dealerCards);
+      setPlayerPoints(initialDeal.playerPoints);
 
-    setDealerPoints(null);
-    setGameOver(false);
-    setMessage("");
-  } catch (error) {
-    console.error("Failed to start new game", error);
-  }
-};
+      setDealerPoints(null);
+      setGameOver(false);
+      setMessage("");
+    } catch (error) {
+      console.error("Failed to start new game", error);
+    }
+  };
 
   // Player hits
   const handleHit = async () => {
@@ -82,67 +84,68 @@ export default function BlackjackPage() {
 
   // Displays dealer card + hidden card
   const dealerPointsDisplay = () => {
-  if (!gameOver && dealerCards.length > 1) {
-    // First card's blackjack value + hidden
-    return `${dealerCards[0].blackjackValue} + ?`;
-  }
-  return dealerPoints !== null ? dealerPoints : "";
-};
-
+    if (!gameOver && dealerCards.length > 1) {
+      // First card's blackjack value + hidden
+      return `${dealerCards[0].blackjackValue} + ?`;
+    }
+    return dealerPoints !== null ? dealerPoints : "";
+  };
 
   // Game page visuals
   return (
-    <div style={{ padding: 20 }}>
-      <h1>Blackjack</h1>
+    <div className={styles.page}>
+      {/* Page title */}
+      <h1 className={styles.title}>Blackjack</h1>
 
-      <DealerHand cards={dealerCards} />
-      <PlayerHand cards={playerCards} />
+      {/* Table wrapper */}
+      <div className={styles.table}>
+        {/* Dealer cards */}
+        <DealerHand cards={dealerCards} />
 
-      <div style={{ marginBottom: 12 }}>
-        {/* Dealer points */}
-        {dealerCards.length > 0 && (
-          <p>
-            <strong>Dealer points:</strong> {dealerPointsDisplay()}
-          </p>
-        )}
+        {/* Player cards */}
+        <PlayerHand cards={playerCards} />
 
-        {/* Blackjack message */}
-        {playerPoints !== null && gameOver && playerPoints === 21 && (
-          <p style={{ color: "green", fontWeight: "bold" }}>BLACKJACK</p>
-        )}
+        {/* Points and messages */}
+        <div className={styles.info}>
+          {/* Dealer points */}
+          {dealerCards.length > 0 && (
+            <p>
+              <strong>Dealer points:</strong> {dealerPointsDisplay()}
+            </p>
+          )}
 
-        {/* Bust message */}
-        {playerPoints !== null && playerPoints > 21 && (
-          <p style={{ color: "red", fontWeight: "bold" }}>BUST</p>
-        )}
+          {/* Blackjack message */}
+          {playerPoints !== null && gameOver && playerPoints === 21 && (
+            <p className={styles.blackjack}>BLACKJACK</p>
+          )}
 
-        {/* Player points */}
-        {playerPoints !== null && (
-          <p>
-            <strong>Your points:</strong> {playerPoints}
-          </p>
-        )}
+          {/* Bust message */}
+          {playerPoints !== null && playerPoints > 21 && (
+            <p className={styles.bust}>BUST</p>
+          )}
+
+          {/* Player points */}
+          {playerPoints !== null && (
+            <p>
+              <strong>Your points:</strong> {playerPoints}
+            </p>
+          )}
+        </div>
+
+        {/* Buttons for game actions */}
+        <div className={styles.controls}>
+          <button onClick={handleNewGame}>New</button>
+          <button onClick={handleHit} disabled={gameOver}>
+            Hit
+          </button>
+          <button onClick={handleStay} disabled={gameOver}>
+            Stay
+          </button>
+        </div>
       </div>
 
-      <div style={{ marginTop: 20 }}>
-        <button onClick={handleNewGame} style={{ marginRight: 10 }}>
-          New Game
-        </button>
-        <button
-          onClick={handleHit}
-          disabled={gameOver}
-          style={{ marginRight: 10 }}
-        >
-          Hit
-        </button>
-        <button onClick={handleStay} disabled={gameOver}>
-          Stay
-        </button>
-      </div>
-
-      {message && (
-        <p style={{ marginTop: 20, whiteSpace: "pre-line" }}>{message}</p>
-      )}
+      {/* General game messages */}
+      {message && <p className={styles.message}>{message}</p>}
     </div>
   );
 }
