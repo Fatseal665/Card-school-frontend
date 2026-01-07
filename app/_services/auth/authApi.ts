@@ -20,6 +20,8 @@ export async function registerUser(data: CustomUserRegisterDTO) {
   
   return res.json(); 
 }
+
+
 export async function loginUser(data: CustomUserLoginDTO) {
   const res = await fetch(`${API_BASE_URL}/login`, {
     method: "POST",
@@ -37,7 +39,7 @@ export async function loginUser(data: CustomUserLoginDTO) {
 }
 
 export async function logoutUser() {
-  await fetch(`${API_BASE_URL}/auth/logout`, {
+  await fetch(`${API_BASE_URL}/logout`, {
     method: "POST",
     credentials: "include",
   });
@@ -46,7 +48,7 @@ export async function logoutUser() {
 
 
 export async function checkPlayerAccess() {
-  const res = await fetch(`${API_BASE_URL}/auth/player-only`, {
+  const res = await fetch(`${API_BASE_URL}/player-only`, {
     method: "GET",
     credentials: "include", 
   });
@@ -67,6 +69,7 @@ export async function checkPlayerAccess() {
   return true;
 }
 
+
 export async function checkAdminAccess() {
   const res = await fetch(`${API_BASE_URL}/auth/admin-only`, {
     method: "GET",
@@ -83,6 +86,25 @@ export async function checkAdminAccess() {
 
   if (!res.ok) {
     throw new Error("Something went wrong");
+  }
+  
+  return true;
+}
+
+
+export async function deleteSelf(password: string) {
+  const res = await fetch(`${API_BASE_URL}/user/delete`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include", // 🔑 JWT-cookie
+    body: JSON.stringify({ password }),
+  });
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(text || "Delete account failed");
   }
 
   return true;
