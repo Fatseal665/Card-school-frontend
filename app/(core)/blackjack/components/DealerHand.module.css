@@ -1,0 +1,17 @@
+.dealerHand {
+  display: flex;
+  gap: 20px; /* Space between cards */
+  justify-content: center;
+  position: absolute;
+  top: 50px; /* Space between top of table and cards */
+  width: 100%;
+}
+
+.card {
+  width: 110px; /* card size */
+  border-radius: 8px;
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease;
+}
+
+
