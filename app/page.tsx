@@ -28,7 +28,7 @@ export default function StartPage() {
 
   return (
     <div className={`${styles.page} bg-felt`}>
-      <h1 className={styles.title}>CardSckole</h1>
+      <h1 className={styles.title}>Card School</h1>
 
       <div className={styles.menu}>
         <button onClick={() => router.push("/blackjack")}>
