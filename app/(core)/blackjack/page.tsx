@@ -1,6 +1,6 @@
 "use client";
 
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import styles from "./BlackjackPage.module.css";
 
@@ -9,6 +9,7 @@ import { BlackJackStateDTO } from "@/app/_types/blackjack-state-dto";
 import { newGame, playerHit, stay } from "@/app/_services/blackjackApi";
 import PlayerHand from "./components/PlayerHand";
 import DealerHand from "./components/DealerHand";
+import { useRouter } from "next/navigation";
 
 export default function BlackjackPage() {
   const [playerCards, setPlayerCards] = useState<CardDTO[]>([]);
@@ -17,7 +18,8 @@ export default function BlackjackPage() {
   const [dealerPoints, setDealerPoints] = useState<number | null>(null);
   const [gameOver, setGameOver] = useState(false);
   const [message, setMessage] = useState("");
-
+  const [paused, setPaused] = useState(false);
+  const router = useRouter();
 
   // Applies game state
   const applyState = (state: BlackJackStateDTO) => {
@@ -59,8 +61,8 @@ export default function BlackjackPage() {
   };
 
   useEffect(() => {
-  handleNewGame();
-}, []);
+    handleNewGame();
+  }, []);
 
   // Hit
   const handleHit = async () => {
@@ -90,6 +92,14 @@ export default function BlackjackPage() {
 
       {/* Table wrapper */}
       <div className={styles.table}>
+        <button
+          className={styles.pauseButton}
+          onClick={() => setPaused(true)}
+          disabled={paused}
+          aria-label="Pause game"
+        >
+          ❚❚
+        </button>
         {/* Dealer cards */}
         <DealerHand cards={dealerCards} />
 
@@ -128,17 +138,46 @@ export default function BlackjackPage() {
 
         {/* Buttons for game actions */}
         <div className={styles.controls}>
-          <button onClick={handleNewGame}>New</button>
-          <button onClick={handleHit} disabled={gameOver || playerCards.length === 0}>
+          <button
+            onClick={handleHit}
+            disabled={gameOver || paused || playerCards.length === 0}
+          >
             Hit
           </button>
-          <button onClick={handleStay} disabled={gameOver || playerCards.length === 0}>
+
+          <button onClick={handleNewGame} disabled={paused || !gameOver}>
+            New
+          </button>
+
+          <button
+            onClick={handleStay}
+            disabled={gameOver || paused || playerCards.length === 0}
+          >
             Stay
           </button>
         </div>
 
         {/* General game messages */}
         {message && <p className={styles.message}>{message}</p>}
+
+        {paused && (
+          <div className={styles.pauseOverlay}>
+            <div className={styles.pauseMenu}>
+              <h2>Paused</h2>
+
+              <button onClick={() => setPaused(false)}>Resume</button>
+              <button
+                onClick={() => {
+                  setPaused(false);
+                  handleNewGame();
+                }}
+              >
+                New Game
+              </button>
+              <button onClick={() => router.push("/")}>Exit</button>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
