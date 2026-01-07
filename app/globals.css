@@ -71,8 +71,10 @@ button {
   border: none;
   border-radius: var(--ui-radius);
   transition: transform var(--fast-transition),
-              background-color var(--fast-transition),
-              opacity var(--fast-transition);
+  background-color var(--fast-transition),
+  opacity var(--fast-transition);
+
+  background-color: #edb86e; 
 }
 
 button:disabled {
