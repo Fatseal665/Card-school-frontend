@@ -1,0 +1,64 @@
+/* =========================
+   START PAGE LAYOUT
+   ========================= */
+
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 20px;
+}
+
+/* Page title */
+.title {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--gold);
+  text-shadow: 2px 2px 5px rgba(0,0,0,0.7);
+}
+
+/* Card-like menu wrapper */
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background: linear-gradient(
+    135deg,
+    var(--wood-brown),
+    var(--wood-brown-dark)
+  );
+  border: 10px solid var(--wood-brown-dark);
+  border-radius: 24px;
+  padding: 40px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+  width: 300px;
+  text-align: center;
+}
+
+/* Buttons */
+.menu button {
+  width: 100%;
+  padding: 15px 0;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #fff;
+  background: var(--felt-green);
+  border: 3px solid var(--gold);
+  border-radius: var(--ui-radius);
+  box-shadow: var(--ui-shadow);
+  transition: transform var(--fast-transition), background-color var(--fast-transition);
+}
+
+.menu button:hover {
+  background-color: var(--felt-green-dark);
+  transform: scale(1.05);
+}
+
+.menu button:disabled {
+  background-color: #555;
+  border-color: #999;
+  cursor: not-allowed;
+}

@@ -1,0 +1,17 @@
+.homeButton {
+  position: absolute;
+  background-color: var(--gold);
+  color: #0f3d14;
+  font-weight: bold;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 3px solid var(--wood-brown);
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  
+  transition: transform var(--fast-transition), background-color var(--fast-transition);
+}
+
+.homeButton:hover {
+  transform: scale(1.05);
+}

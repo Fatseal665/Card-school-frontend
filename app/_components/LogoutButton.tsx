@@ -8,7 +8,7 @@ export function LogoutButton() {
 
   const handleLogout = async () => {
     await logoutUser();
-    router.replace("/auth/login"); // Redirect till login efter logout
+    router.replace("/");
   };
 
   return <button onClick={handleLogout}>Logout</button>;
