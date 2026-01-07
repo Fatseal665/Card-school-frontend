@@ -1,32 +1,25 @@
-/* =========================
-   BLACKJACK PAGE LAYOUT
-   ========================= */
-
 .page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 24px;
+  padding-top: 6px;   /* Top padding reduced */
+  padding-bottom: 6px; /* Bottom padding reduced */
 }
 
-/* Page title */
 .title {
-  margin-bottom: 20px;
+  margin-bottom: 8px; /* Reduced space below title */
   font-size: 2rem;
   letter-spacing: 1px;
 }
-
-/* =========================
-   TABLE (BILLIARD LOOK)
-   ========================= */
 
 .table {
   position: relative;
 
   width: 90%;
   max-width: 1200px;
-  height: 600px;
+  height: 75vh; /* Reduced table height */
+  min-height: 500px;
 
   background-color: var(--felt-green);
   border: 20px solid var(--wood-brown);
@@ -37,15 +30,16 @@
     0 20px 40px rgba(0, 0, 0, 0.6);
 }
 
-/* =========================
-   INFO / TEXT
-   ========================= */
-
 .info {
   position: absolute;
-  left: 24px;
-  bottom: 24px;
-  font-size: 0.95rem;
+  top: 47.5%;
+  transform: translate(-50%, -30%); /* Positioned between dealer and player */
+  left: 50%;
+  text-align: center;
+  font-size: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 8px 12px;
+  border-radius: 8px;
 }
 
 .blackjack {
@@ -58,8 +52,40 @@
   font-weight: bold;
 }
 
+.controls {
+  position: absolute;
+  right: 40px;
+  bottom: 50%;
+  transform: translateY(50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 10; /* Above the deck image */
+}
+
+.controls button {
+  padding: 12px 24px;
+  font-size: 1.1rem;
+}
+
+.cardDeck {
+  position: absolute;
+  right: 22px;
+  bottom: 50%;
+  transform: translateY(50%);
+  width: 120px;
+  z-index: 1; /* Behind buttons */
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+}
+
 .message {
-  margin-top: 20px;
+  position: absolute;
+  left: 22px;
+  top: 50%;
+  transform: translateY(-50%);
   font-size: 1.2rem;
   white-space: pre-line;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 6px 10px;
+  border-radius: 6px;
 }
