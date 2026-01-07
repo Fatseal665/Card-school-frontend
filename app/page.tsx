@@ -21,7 +21,7 @@ export default function StartPage() {
   if (loading) {
     return (
       <div className={`${styles.page} bg-felt`}>
-        <p>Laddar...</p>
+        <p>Loading...</p>
       </div>
     );
   }
@@ -32,12 +32,12 @@ export default function StartPage() {
 
       <div className={styles.menu}>
         <button onClick={() => router.push("/blackjack")}>
-          Spela Blackjack
+          Play Blackjack
         </button>
 
         {user ? (
           <button onClick={() => router.push("/player")}>
-            Mitt konto
+            My account
           </button>
         ) : (
           <button onClick={() => router.push("/auth/login")}>
@@ -48,7 +48,7 @@ export default function StartPage() {
 
       {user && (
         <p className={styles.welcome}>
-          Välkommen, <span className="text-gold">{user.username}</span>
+          Welcome, <span className="text-gold">{user.username}</span>
         </p>
       )}
     </div>
