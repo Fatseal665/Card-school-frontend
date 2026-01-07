@@ -1,4 +1,5 @@
 import { CardDTO } from "@/app/_types/card";
+import styles from "./DealerHand.module.css";
 
 interface Props {
   cards: CardDTO[];
@@ -6,18 +7,15 @@ interface Props {
 
 export default function DealerHand({ cards }: Props) {
   return (
-    <div style={{ display: "flex", gap: 8 }}>
+    <div className={styles.dealerHand}>
       {cards.map((card, i) => {
-        // Decide which image to show based on faceDown
-        const imgSrc = card.faceDown
-          ? "/cards/hidden_card.svg"
-          : card.imagePath;
+        const imgSrc = card.faceDown ? "/cards/hidden_card.svg" : card.imagePath;
         return (
           <img
             key={i}
-            src={card.imagePath}
+            src={imgSrc}
             alt={card.faceDown ? "Hidden card" : card.displayName}
-            style={{ width: 80 }}
+            className={styles.card}
           />
         );
       })}

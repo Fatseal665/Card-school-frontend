@@ -1,26 +1,137 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* 
+  This is a global reset.
+  It removes default margin and padding added by browsers
+  and makes element sizes easier to understand by including
+  padding and borders in the element’s width and height.
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html,
+body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #0f3d14;
+  color: #ffffff;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
+
+
+/* =========================
+   DESIGN VARIABLES (THEME)
+   ========================= */
+
+:root {
+  /* Blackjack / Casino colors */
+  --felt-green: #2e7d32;
+  --felt-green-dark: #1b5e20;
+
+  --wood-brown: #5d4037;
+  --wood-brown-dark: #3e2723;
+
+  --gold: #ffd700;
+  --danger: #ff5252;
+
+  /* Cards */
+  --card-radius: 8px;
+  --card-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+
+  /* UI */
+  --ui-radius: 20px;
+  --ui-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+
+  /* Transitions */
+  --fast-transition: 0.2s ease;
+}
+
+
+/* =========================
+   GLOBAL ELEMENT STYLES
+   ========================= */
+
+h1,
+h2,
+h3 {
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--ui-radius);
+  transition: transform var(--fast-transition),
+  background-color var(--fast-transition),
+  opacity var(--fast-transition);
+
+  background-color: #edb86e; 
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+
+/* =========================
+   REUSABLE UTILITIES
+   ========================= */
+
+/* Center content horizontally & vertically */
+.flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Text helpers */
+.text-gold {
+  color: var(--gold);
+}
+
+.text-danger {
+  color: var(--danger);
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+/* Background helpers */
+.bg-felt {
+  background: radial-gradient(
+    circle at top,
+    var(--felt-green),
+    var(--felt-green-dark)
+  );
+}
+
+.bg-wood {
+  background: linear-gradient(
+    135deg,
+    var(--wood-brown),
+    var(--wood-brown-dark)
+  );
+}
+
+
+/* =========================
+   IMAGES (CARDS, UI)
+   ========================= */
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
